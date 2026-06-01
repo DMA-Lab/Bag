@@ -1,0 +1,49 @@
+[package]
+name = "bap"
+version = "0.1.0"
+edition = "2021"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[lib]
+name = "bap"
+
+[dependencies]
+rand = { version = "0.8.5", features = [] }
+anyhow = "1.0"
+mimalloc = { version = "*", default-features = false }
+pheap = "*"
+ahash = { version = "0.8.6", features = ["no-rng"] }
+bincode = { version = "2.0", features = ["serde"] }
+
+# For excutable binary to use.
+clap = { version = "4.4", features = ["derive"] }
+serde = { version = "1.0.202", features = ["derive"] }
+serde_json = "1.0.120"
+
+
+[[test]]
+name = "vfip"
+
+[[test]]
+name = "index_static_search"
+
+[[test]]
+name = "index_continuous_query"
+
+[[test]]
+name = "average_weight"
+
+
+[profile.release-with-debug]
+inherits = "release"
+debug = true
+
+[profile.release]
+debug = true
+
+lto = true
+opt-level = 3
+codegen-units = 1
+panic = 'abort'
+overflow-checks = false
